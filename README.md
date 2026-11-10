@@ -71,6 +71,39 @@ The experiment uses a 1,400-sample subset, a single training run, and a simplifi
 
 The unseen-drug subgroup analysis is exploratory and does not constitute a strict cold-drug benchmark.
 
+### How to Reproduce This Project
+
+**Recommended environment:** Google Colab with an NVIDIA GPU.
+
+**Main reproduction notebook:**
+
+`notebooks/AIDD8122_XPert_Reproduction_CLEAN.ipynb`
+
+**Steps:**
+
+1. Open the cleaned notebook in Google Colab.
+2. Enable a GPU runtime.
+3. Follow the notebook to set up dependencies and obtain the official XPert dataset.
+4. Generate the 1,400-sample experimental subset using the fixed random seed (2026).
+5. Prepare the HG-only model configuration and drug feature interface.
+6. Train the adapted XPert model for 10 epochs, selecting the best checkpoint by validation MSE.
+7. Evaluate the checkpoint on the held-out test set against the no-change baseline.
+8. Generate the model comparison tables, figures, and drug-cluster bootstrap confidence interval.
+
+**Experimental outputs:**
+
+- `results/training_history_large.csv`
+- `results/model_comparison_large.csv`
+- `results/bootstrap_results.csv`
+- `results/test_predictions_large.npz`
+- `results/figures/` — Experimental figures, if stored at this path.
+
+**Reproducibility notes:**
+
+This project uses an adapted HG-only XPert implementation rather than the full original model. The UniMol branch is disabled, and a simplified training objective is used.
+
+The cleaned notebook has been organized and syntax-checked, but the complete training pipeline has not been independently rerun in a fresh environment. The reported numerical results originate from the completed experimental run.
+
 ### 7. Original Work and Attribution
 
 This repository is forked from the original XPert project.
