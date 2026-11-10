@@ -1,3 +1,89 @@
+# AIDD8122 Final Project
+
+## Reproduction and Evaluation of an HG-Only XPert Variant for Drug-Induced Transcriptomic Response Prediction
+
+**Student:** Qiu Dian  
+**Student ID:** P2600216  
+**Institution:** Macao Polytechnic University  
+**Course:** AIDD8122 – Advanced Topics in Artificial Intelligence & Drug Discovery
+
+### 1. Project Overview
+
+This course project evaluates a modified HG-only variant of XPert for predicting drug-induced transcriptomic responses.
+
+The central research question is whether XPert can predict meaningful drug-induced gene expression changes beyond a simple no-change baseline.
+
+### 2. Dataset
+
+The study uses a subset of the publicly available LINCS L1000 perturbation dataset provided by the XPert authors.
+
+| Dataset split | Number of samples |
+|---|---:|
+| Training | 1,000 |
+| Validation | 200 |
+| Testing | 200 |
+| Total | 1,400 |
+
+Each sample contains expression measurements for 978 genes.
+
+**Data source:** https://zenodo.org/records/17182939
+
+### 3. Methods
+
+The experiment uses an adapted XPert model with knowledge-graph-based drug representations.
+
+The UniMol branch was disabled, and FlashAttention was replaced with a PyTorch-compatible attention implementation for NVIDIA Tesla T4.
+
+Training used a simplified MSE-based objective for 10 epochs. Model selection was based on validation-set MSE.
+
+A no-change baseline was used for comparison.
+
+### 4. Main Results
+
+| Metric | No-change Baseline | XPert-HG-only |
+|---|---:|---:|
+| MSE | 0.519923 | 0.510133 |
+| RMSE | 0.721057 | 0.714236 |
+| MAE | 0.442325 | 0.445866 |
+
+The adapted XPert model reduced test MSE by approximately 1.88%.
+
+The mean Pearson correlation for predicted versus observed expression changes was 0.132.
+
+MSE improved for 136 of the 200 test samples.
+
+Drug-cluster bootstrap analysis estimated a mean MSE reduction of 0.009791, with a 95% confidence interval of [0.007556, 0.012155].
+
+### 5. Project Files
+
+- `notebooks/` — Colab notebook containing the experimental workflow.
+- `models/` — Adapted XPert model source code.
+- `configs/` — Experimental configuration files.
+- `train_xpert.py` and `utils.py` — Adapted training and data-loading code.
+- `results/` — Training history, model comparison, bootstrap statistics, and saved predictions.
+- `figures/` — Experimental visualizations.
+
+### 6. Limitations
+
+This is an adapted HG-only implementation, not a full reproduction of the original XPert architecture and training protocol.
+
+The experiment uses a 1,400-sample subset, a single training run, and a simplified loss function. The model shows limited correlation with observed drug-induced expression changes.
+
+The unseen-drug subgroup analysis is exploratory and does not constitute a strict cold-drug benchmark.
+
+### 7. Original Work and Attribution
+
+This repository is forked from the original XPert project.
+
+**Original XPert repository:** https://github.com/GSanShui/XPert
+
+The original authors' contributions, documentation, and license are retained below.
+
+---
+
+## Original XPert Documentation
+
+*The original repository README continues below this section.*
 # XPert: Modelling drug-induced cellular perturbation responses with a biologically informed dual-branch Transformer
 
 ## Introduction
