@@ -1,0 +1,2 @@
+n_test_samples,n_unique_drugs,bootstrap_repetitions,observed_mse_reduction,ci_lower_95,ci_upper_95,fraction_positive_resamples,source
+200,196,5000,0.0032822646,0.0026182854302472087,0.004011627057035435,1.0,"Kaggle output supplied in conversation, 10 November 2026; the 5000 bootstrap replicates are not present in this ZIP."

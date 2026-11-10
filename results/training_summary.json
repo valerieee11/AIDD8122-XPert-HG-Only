@@ -1,0 +1,10 @@
+{
+  "experiment": "XPert-HG-only + Pearson loss",
+  "seed": 2026,
+  "pearson_loss_weight": 0.1,
+  "epochs": 10,
+  "best_epoch": 10,
+  "best_validation_mse": 0.48810398737589517,
+  "pytorch_version": "2.11.0+cu130",
+  "device": "Tesla T4"
+}
