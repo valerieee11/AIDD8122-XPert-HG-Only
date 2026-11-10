@@ -4,7 +4,7 @@ import torch
 import torch.nn as nn
 from models.model_utils import (Embeddings, Encoder, cell_Embeddings,
                                 crossEncoder, unimol_Embeddings)
-from torch_geometric.nn import HeteroConv, SAGEConv
+# Unused torch_geometric import omitted for HG-only demo
 
 
 def get_unimol_drug_feat(input_features):

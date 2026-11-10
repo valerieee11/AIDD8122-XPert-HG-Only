@@ -5,7 +5,14 @@ import math
 import numpy as np
 import torch
 import torch.nn.functional as F
-from flash_attn.flash_attn_interface import flash_attn_func
+def flash_attn_func(q, k, v, dropout_p=0.0):
+    return torch.nn.functional.scaled_dot_product_attention(
+        q.transpose(1, 2),
+        k.transpose(1, 2),
+        v.transpose(1, 2),
+        dropout_p=dropout_p,
+        is_causal=False
+    ).transpose(1, 2).contiguous()
 from torch import nn
 
 
