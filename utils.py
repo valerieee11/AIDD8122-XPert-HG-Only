@@ -7,9 +7,9 @@ import torch.nn.functional as F
 from torch.cuda.amp import autocast
 import matplotlib.pyplot as plt
 from torch.utils.data import DataLoader
-import scanpy as sc
+import anndata as sc
 import tqdm
-from unimol_tools import UniMolRepr
+UniMolRepr = None  # Not used in HG-only experiment
 
 from metrics import get_metrics_new, get_metrics_infer
 from datasets.MyDataset import MyDataset
@@ -153,9 +153,9 @@ def load_dataloader(args,config,logger,nfold, return_rawdata=False):
     logger.info("Starting load test data...")
     test_dataset = Dataset(test_data, drug_feat, args=args, config=config, logger=logger, max_value=max_value, min_value=min_value)
     
-    tr_dataloader = DataLoader(tr_dataset, batch_size=batch_size, shuffle=True, num_workers=10, drop_last=False)
-    val_dataloader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False, num_workers=10, drop_last=False)
-    test_dataloader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False, num_workers=10, drop_last=False)
+    tr_dataloader = DataLoader(tr_dataset, batch_size=batch_size, shuffle=True, num_workers=0, drop_last=False)
+    val_dataloader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False, num_workers=0, drop_last=False)
+    test_dataloader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False, num_workers=0, drop_last=False)
 
     logger.info(f'train dataloader:{len(tr_dataloader)}')  
     logger.info(f'Valid dataloader:{len(val_dataloader)}')
@@ -226,7 +226,7 @@ def load_test_dataloader(args,config,logger,nfold):
     test_dataset = Dataset(test_data, drug_feat, args=args, config=config, logger=logger, max_value=max_value, min_value=min_value)
     
 
-    test_dataloader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False, num_workers=10, drop_last=False)
+    test_dataloader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False, num_workers=0, drop_last=False)
 
     logger.info(f'Test dataloader:{len(test_dataloader)}')
     
@@ -298,7 +298,7 @@ def load_infer_dataloader(args,config,logger,nfold):
 
     logger.info("Starting load infer data...")
     test_dataset = Dataset(test_data, drug_feat, args=args, config=config, logger=logger, max_value=max_value, min_value=min_value)
-    test_dataloader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False, num_workers=10, drop_last=False)
+    test_dataloader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False, num_workers=0, drop_last=False)
 
     logger.info(f'Test dataloader:{len(test_dataloader)}')
     

@@ -119,7 +119,7 @@ def train(model, opt, dataloader, args, config, scaler=None, epoch=0, loss_func=
             scaler.update()
 
         else:
-            trt_output, ctl_output, deg_output, trt_raw_data, ctl_raw_data, _ = model(data)
+            trt_output, ctl_output, deg_output, trt_raw_data, ctl_raw_data, _, cell_class_true, cell_class_predict = model(data)
             num_samples =  trt_raw_data.shape[0]
             num_batches += num_samples
             loss1 = mse_loss_ls_sum(trt_output, trt_raw_data)
@@ -570,8 +570,8 @@ def main():
             log_nested_dict(val_metrics, logger, indent=1)
            
             logger.info('Tesing on test dataset:')
-            _,_,_,_,_, test_metrics = validate(model, test_dataloader, args, config, flag=True, scaler=gradscaler)
-            test_metrics = val_metrics
+            _,_,_,_,_, test_metrics = validate(best_model, test_dataloader, args, config, flag=True, scaler=gradscaler)
+            # Keep independently computed test metrics
             logger.info('Test Metrics:')
             log_nested_dict(test_metrics, logger, indent=1)          
 
