@@ -104,6 +104,26 @@ This project uses an adapted HG-only XPert implementation rather than the full o
 
 The cleaned notebook has been organized and syntax-checked, but the complete training pipeline has not been independently rerun in a fresh environment. The reported numerical results originate from the completed experimental run.
 
+
+## Pearson-Loss Ablation Study
+
+An exploratory ablation study was conducted to evaluate
+the contribution of Pearson correlation-based supervision
+to drug-induced transcriptomic response prediction.
+
+On 200 held-out test observations, adding the Pearson loss
+reduced MSE from 0.510133 to 0.506850 and improved mean
+Pearson delta from 0.131860 to 0.154565.
+
+The improvement is exploratory because the two conditions
+were trained in different hosted environments, with one
+training run per condition.
+
+- [Ablation methods and findings](README_ABLATION.md)
+- [Kaggle reproduction notebook](notebooks/AIDD8122_XPert_Pearson_Ablation_Kaggle.ipynb)
+- [Ablation comparison results](results/ablation_comparison.csv)
+
+
 ### 7. Original Work and Attribution
 
 This repository is forked from the original XPert project.
